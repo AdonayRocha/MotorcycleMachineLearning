@@ -15,7 +15,9 @@ Funcionalidades
 
 Requisitos
 ----------
-- Python 3.7+
+⚠️ **IMPORTANTE**: Este código funciona apenas com Python 12 ou versões anteriores devido à biblioteca LLM utilizada.
+
+- Python 3.7+ (máximo Python 12)
 - inference (Roboflow SDK)
 - opencv-python
 

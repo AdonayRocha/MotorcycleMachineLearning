@@ -7,7 +7,15 @@ def my_sink(result, video_frame):
         cv2.imshow("Imagem com detecções", result["output_image"].numpy_image)
         cv2.waitKey(1)
 
-    motocicletas = [p for p in result["predictions"] if p["class_name"].lower() == "motocicleta"]
+    motocicletas = []
+    for p in result["predictions"]:
+        if isinstance(p, dict):
+            if p.get("class_name", "").lower() == "motocicleta":
+                motocicletas.append(p)
+        elif isinstance(p, tuple):
+            if len(p) > 0 and str(p[0]).lower() == "motocicleta":
+                motocicletas.append(p)
+
     print(f"Motocicletas detectadas: {len(motocicletas)}")
 
 
@@ -39,15 +47,15 @@ def p_local(api_key, workspace_name, workflow_id, video_path, max_fps=15):
     pipeline.join()
 
 
-# Roboflow
-API_KEY = "zl2QCx0S5KqmkOzxvjJs"
-WORKSPACE = "safeyard"
-WORKFLOW_ID = "detect-count-and-visualize"
+# Configuração da API 
+api_key = "zl2QCx0S5KqmkOzxvjJs"
+workspace_name = "safeyard"
+workflow_id = "detect-count-and-visualize-3"
 
 
 # Video Local
 # video_local = "videos/exemplo.mp4"
-# p_local(API_KEY, WORKSPACE, WORKFLOW_ID, video_local)
+# p_local(api_key, workspace_name, workflow_id, video_local)
 
 # Camera
-p_camera(API_KEY, WORKSPACE, WORKFLOW_ID, camera_id=0)
+p_camera(api_key, workspace_name, workflow_id, camera_id=0)
