@@ -48,7 +48,7 @@ def p_local(api_key, workspace_name, workflow_id, video_path, max_fps=15):
 
 
 # Configuração da API 
-api_key = "zl2QCx0S5KqmkOzxvjJs"
+api_key = "secret"
 workspace_name = "safeyard"
 workflow_id = "detect-count-and-visualize-3"
 
