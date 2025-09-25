@@ -3,3 +3,4 @@
 .dist/
 .Scripts/
 .lib/
+.venv321/
