@@ -5,8 +5,8 @@ import oracledb
 
 def save_db(qtd_motos):
     conn = oracledb.connect(
-        user="RM558782",
-        password="Fiap#2025",
+        user="",
+        password="",
         dsn="oracle.fiap.com.br:1521/ORCL"
     )
     cursor = conn.cursor()
