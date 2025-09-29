@@ -69,7 +69,7 @@ flowchart TD
     Loop --> DB["Oracle DB"]
     DB --> NET["Application .NET"]
 
-
+```
 
 @Autor
 -----
