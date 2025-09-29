@@ -46,6 +46,30 @@ Para usar com webcam:
 Para usar com vídeo local:
     p_local(API_KEY, WORKSPACE, WORKFLOW_ID, "videos/video.mp4")
 
+Architecture
+------------
+```mermaid
+flowchart TD
+
+    subgraph Cloud["Cloud"]
+        subgraph ML["MachineLearning Roboflow"]
+        end
+        API["API - Roboflow"]
+        ML -->|Gera| API
+    end
+
+    API --> Python["Application Python"]
+
+    Python -->|Ao executar| Capture["Capture"]
+    Python -->|Ao executar| Loop["LOOP - Count, Date, Hour"]
+
+    Capture --> Loop
+    Loop --> Capture
+
+    Loop --> DB["Oracle DB"]
+    DB --> NET["Application .NET"]
+
+
 
 @Autor
 -----
