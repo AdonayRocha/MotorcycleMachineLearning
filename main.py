@@ -5,9 +5,9 @@ import oracledb
 
 def save_db(qtd_motos):
     conn = oracledb.connect(
-        user="",
-        password="",
-        dsn="oracle.fiap.com.br:1521/ORCL"
+        user="", # User do banco
+        password="", # Senha do Banco
+        dsn="" # Endereço do banco
     )
     cursor = conn.cursor()
     agora = datetime.now()
@@ -79,9 +79,9 @@ def p_local(api_key, workspace_name, workflow_id, video_path, max_fps=15):
 
 
 # Configuração da API 
-api_key = "zl2QCx0S5KqmkOzxvjJs"
+api_key = ""
 workspace_name = "safeyard"
-workflow_id = "detect-count-and-visualize-3"
+workflow_id = "detect-count-and-visualize-3" # ID Do treinamento
 
 
 # Video Local
@@ -90,4 +90,3 @@ workflow_id = "detect-count-and-visualize-3"
 
 # Camera
 p_camera(api_key, workspace_name, workflow_id, camera_id=0)
-
