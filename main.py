@@ -52,7 +52,10 @@ def my_sink(result, video_frame):
             motorcycle_ids[0].add(detection_id)
 
     agora = datetime.now()
-    if (agora - last_db_save[0]).total_seconds() >= 0.95:
+    # Bloqueio do banco por conta do número de requisições
+    # if (agora - last_db_save[0]).total_seconds() >= 0.95:
+
+    if (agora - last_db_save[0]).total_seconds() >= 5:
         qtd_motos = len(motorcycle_ids[0])
         print(f"Motocicletas únicas detectadas no período: {qtd_motos}")
         save_db(qtd_motos)
