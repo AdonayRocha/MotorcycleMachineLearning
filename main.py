@@ -5,9 +5,9 @@ import oracledb
 
 def save_db(qtd_motos):
     conn = oracledb.connect(
-        user="", # User do banco
-        password="", # Senha do Banco
-        dsn="" # Endereço do banco
+        user="RM558782", # User do banco
+        password="Fiap25", # Senha do Banco
+        dsn="oracle.fiap.com.br/orcl" # Endereço do banco
     )
     cursor = conn.cursor()
     agora = datetime.now()
@@ -41,7 +41,7 @@ def my_sink(result, video_frame):
             motorcycle_ids[0].add(detection_id)
 
     agora = datetime.now()
-    if (agora - last_db_save[0]).total_seconds() >= 0.5:
+    if (agora - last_db_save[0]).total_seconds() >= 0.95:
         qtd_motos = len(motorcycle_ids[0])
         print(f"Motocicletas únicas detectadas no período: {qtd_motos}")
         save_db(qtd_motos)
@@ -79,7 +79,7 @@ def p_local(api_key, workspace_name, workflow_id, video_path, max_fps=15):
 
 
 # Configuração da API 
-api_key = ""
+api_key = "nbPKl3TCcnS2aotTK7rh"
 workspace_name = "safeyard"
 workflow_id = "detect-count-and-visualize-3" # ID Do treinamento
 
