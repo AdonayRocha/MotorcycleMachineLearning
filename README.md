@@ -59,6 +59,7 @@ flowchart TD
     end
 
     API --> Python["Application Python"]
+    API -->|Conecta| NET["Application .NET"]
 
     Python -->|Ao executar| Capture["Capture"]
     Python -->|Ao executar| Loop["LOOP - Count, Date, Hour"]
@@ -66,8 +67,8 @@ flowchart TD
     Capture --> Loop
     Loop --> Capture
 
-    Loop --> DB["Oracle DB"]
-    DB --> NET["Application .NET"]
+    Loop --> DB["Oracle DB (TB_ECHO_MOTORCYCLE)"]
+    DB --> NET
 
 ```
 
