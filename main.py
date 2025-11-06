@@ -4,20 +4,31 @@ import cv2
 import oracledb
 
 def save_db(qtd_motos):
-    conn = oracledb.connect(
-        user="RM558782", # User do banco
-        password="Fiap25", # Senha do Banco
-        dsn="oracle.fiap.com.br/orcl" # Endereço do banco
-    )
-    cursor = conn.cursor()
-    agora = datetime.now()
-    data = agora.date()
-    hora = agora.strftime("%H:%M:%S")
-    cursor.execute("""
-        INSERT INTO TB_ECHO_MOTORCYCLE (QTD_MOTOS, HORA, DATA)
-        VALUES (:qtd, :hora, :data)
-    """, qtd=qtd_motos, hora=hora, data=data)
-    conn.commit()
+    try:
+        print(f"[{datetime.now()}] Tentando conectar ao banco de dados...")
+        conn = oracledb.connect(
+            user="RM558782", # User do banco
+            password="Fiap25", # Senha do Banco
+            dsn="oracle.fiap.com.br/orcl" # Endereço do banco
+        )
+        print(f"[{datetime.now()}] Conexão com o banco realizada com sucesso.")
+        cursor = conn.cursor()
+        agora = datetime.now()
+        data = agora.date()
+        hora = agora.strftime("%H:%M:%S")
+        cursor.execute("""
+            INSERT INTO TB_ECHO_MOTORCYCLE (QTD_MOTOS, HORA, DATA)
+            VALUES (:qtd, :hora, :data)
+        """, qtd=qtd_motos, hora=hora, data=data)
+        conn.commit()
+    except Exception as e:
+        print(f"[{datetime.now()}] Falha na conexão ou operação com o banco: {e}")
+    finally:
+        try:
+            cursor.close()
+            conn.close()
+        except:
+            pass
     cursor.close()
     conn.close()
 
