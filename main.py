@@ -4,11 +4,13 @@ import cv2
 import oracledb
 
 def save_db(qtd_motos):
+    conn = None
+    cursor = None
     try:
         print(f"[{datetime.now()}] Tentando conectar ao banco de dados...")
         conn = oracledb.connect(
             user="RM558782", # User do banco
-            password="Fiap25", # Senha do Banco
+            password="fiap25", # Senha do Banco
             dsn="oracle.fiap.com.br/orcl" # Endereço do banco
         )
         print(f"[{datetime.now()}] Conexão com o banco realizada com sucesso.")
@@ -23,14 +25,20 @@ def save_db(qtd_motos):
         conn.commit()
     except Exception as e:
         print(f"[{datetime.now()}] Falha na conexão ou operação com o banco: {e}")
+        print("Encerrando o sistema devido à falha na conexão com o banco de dados.")
+        import sys
+        sys.exit(1)
     finally:
-        try:
-            cursor.close()
-            conn.close()
-        except:
-            pass
-    cursor.close()
-    conn.close()
+        if cursor:
+            try:
+                cursor.close()
+            except:
+                pass
+        if conn:
+            try:
+                conn.close()
+            except:
+                pass
 
 motorcycle_ids = [set()]
 last_db_save = [datetime.min]
@@ -55,7 +63,7 @@ def my_sink(result, video_frame):
     # Bloqueio do banco por conta do número de requisições
     # if (agora - last_db_save[0]).total_seconds() >= 0.95:
 
-    if (agora - last_db_save[0]).total_seconds() >= 5:
+    if (agora - last_db_save[0]).total_seconds() >= 0.50:
         qtd_motos = len(motorcycle_ids[0])
         print(f"Motocicletas únicas detectadas no período: {qtd_motos}")
         save_db(qtd_motos)
